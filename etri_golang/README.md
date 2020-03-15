@@ -1,58 +1,58 @@
-##Go 언어 설치
-###1.Install Go Language
+## Go 언어 설치
+### 1.Install Go Language
 	$ sudo apt-get update
 	$ wget http://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
 	$ sudo tar -xvzf go1.11.4.linux-amd64.tar.gz
 	$ sudo mv go /usr/local
 
-###2. Setup Go Environment
+### 2. Setup Go Environment
 	$ export GOROOT=/root/local/go
 	$ export GOPATH=$HOME/go
 	$ export PATH=PATH=$GOPATH/bin:$GOROOT/bin:$PATH 
 	$ vim ~/.profile
 
-###3. Update current shell session and verify
+### 3. Update current shell session and verify
 	$ source ~/.profile
 	$ go version			// go 버전 확인
 	$ go env				// go 환경 변수 확인
 	$ echo $GOPATH
 	$ ls $HOME/go
 
-##GO 프로그램 빌드와 컴파일
-###Go 디렉토리 
+## GO 프로그램 빌드와 컴파일
+### Go 디렉토리 
 	1. bin : 소스 파일 컴파일해서 실행 파일이 생성되는 디렉토리
 	2. pkg : 패키지 컴파일하여 라이브러리 파일이 생성되는 디렉토리, 아키텍처 단위
 	3. src : 작성한 소스 파일과 인터넷에서 자동으로 받아온 소스 파일이 저장되는 디렉토리
 
-###Go 파일 빌드 후 실행
+### Go 파일 빌드 후 실행
 	1. go build 파일이름
 	2. ./파일이름
 
-###Go 파일 컴파일
+### Go 파일 컴파일
 	1. go run 파일이름 
 
-###소스 파일 내용 정리 표준 출력으로 보여준
+### 소스 파일 내용 정리 표준 출력으로 보여준
 	1. gofmt 파일이름
 
-##GO 프로그램 읽는 방법
-###패키지 선언(package)
+## GO 프로그램 읽는 방법
+### 패키지 선언(package)
 	1. 모든 Go 프르그램은 반드시 패키지 선언으로 시작
 	2. 패키지는 Go언어에서 코드 조직화하고 재사용 수단
 	3. Go 프로그램은 두 가지 유형 : 실행 프로그램과 라이브러리
 	4. 실행 가능한 애플리케이션은 터미널에서 바로 실행할 수 있는 종류의 프로그램
 	5. 라이브러리는 다른 프로그램에서 사용할 수 있게 패키징된 코드의 모음
 
-###importt "fmt"
+### importt "fmt"
 	1. import : 다른 패키지에 포함된 코드 이용
 	2. fmt 패키지(형식화[format]의 축약형) : 입력과 출력에 대한 형식화
 	3. fmt : 큰 따옴표 사용하는 것은 "문자열 리터럴", "수식(expression)"에 해당
 	4. Go 문자열은 길이가 정해진 문자(글자, 숫자, 기호 등) 나열
 
-###주석
+### 주석
 	1. //주석은 //뒤의 모든 텍스트를 주석으로 간주
 	2. /* */ 주석은 두 * 사이의 내용을 모두 주석으로 간주
 
-###main함수 선언
+### main함수 선언
 func main() {
 	fmt.Println("Hello World")
 }
@@ -64,10 +64,10 @@ func main() {
 	6. 중괄호 {} 안에는 함수를 호출하였을 때 수행한 내용을 선언한다.
 	7. main 함수는 프로그램을 실행할 때 가장 먼저 호출되는 특별한 함수  
 
-##데이터 타입
+## 데이터 타입
 값이 저장되는 방식을 정의한 것을 데이터 타입이라고 한다.
 
-###정수(숫자)
+### 정수(숫자)
 	1. Go 정수 타입 : uint8, uint16, uint32, uint64, int8, int16, int32, int64
 	2. 8, 16, 32, 64는 각 타입이 사용하는 비트 수
 	3. uint는 "부호가 없는 정수(unsigned integer)", int는 "부호가 있는 정수(signed integer)"
@@ -76,8 +76,9 @@ func main() {
 	6. rune은 uint32을 별칭으로 한다.
 	7. uint, int, uintptr는 CPU와 OS 등에 의존적인 정수 타입이다. 즉, CPU의 기본 비트(32bit, 64bit)와 OS(linux, window, mac)에 따라 다르다.
 	8. 일반적으로 정수를 사용할 때는  int 타입이  사용된다. uint를 사용하려면 선언을 따로 선언을 해 주어야 한다.
+	9. 변수 크를 알기 위해서는 unsafe 패키지에서 sizeof() 함수를 사용한다.
  
-###부동 소수점(숫자)
+### 부동 소수점(숫자)
 	1. 소수부가 포함된 숫자(예: 1.234, 123.4, 0.00001234, 12340000)
 	2. float32와 float64라는 두가지 "부동 소수점 타입"과 complex64와 complex128이라고 하는 "복소수 타입"이 존재
 	3. 일반적으로 부동소수점을 사용할 때는 float64 타입이 사용된다. 
@@ -86,7 +87,40 @@ func main() {
 	6. 정확도를 향상시키지 위해서는 큰 부동 소수점을 사용할 수 있는 float64를 사용하는 것이 좋다.
 	7. float32는 소숫점 8자리까지 값이 나온다면 float64는 소숫점 15자리까지 값이 나옴으로써 float64가 더 정확하다.
 
+## 문자열
+	1. Go 언의 문자열은 개별 바이트로 구성한다.
+	2. 보통 문자열의  각 문자는 문자마다 한 바이트를 차지한다.
+	3. 문자열 리터럴은 "Hello World"처럼 큰 따옴표를 이용하거나 `Hello World`처럼 역따옴표를 이용한다.
+	4. 큰 따옴표로 만든 문자열은 줄바꿈 포함할 수 없고 특별한 이스케이프 문자열을 사용
+	5. 즉, Windows에서 enter키를 누르면 발생하는 줄바꿈은 적용이 안되고 \n을 문자열에 적어야 줄바꿈 적용 가능
+	6. 문자열 연산으로 문자열의 길이를 구하는 방법 : len("Hello World")
+	7. 문자열 내의 각 문자에 접근 방법 : ("Hello World"[1])
+	8. 두 문자열 하나로 합치는 방법 : ("Hello " + "World")
+	9. 공백도 하나의 문자로 간주한다. 즉, "Hello World"의 문자열 길이는 10이 아니라 11이다.
+	10. Go에서 인덱스는 0부터 시작한다. 즉, fmt.Printf("%c",(Hello World[1]))을 하면 'H'가 아니라 'e'가 출력된다.
+	11. 맘약 fmt.Println("Hello World[1]")을 하면 'e'가 나오지 않는다. 101이 나온다. fmt.Println()은 문자가 아니라 바이트로 출력값을 표현한다.
+	12. 문자열 연결은 덧셈과 같은 기호를 사용한다. "Hello " + "World"를 하면 1개의 문자열 "Hello World"이 만들어진다.
 
+## Boolean
+	1. Boolean은 참(true)와 거짓(false)를 나타내는 데 사용되는 특별한 1 바이트 정수 타입이다.
+	
+
+
+## 상수 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 	
 
 
 
