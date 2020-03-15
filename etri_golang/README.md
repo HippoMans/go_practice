@@ -53,7 +53,9 @@
 	2. /* */ 주석은 두 * 사이의 내용을 모두 주석으로 간주
 
 ### main함수 선언
-#### func main() {\n    fmt.Println("Hello World")\n    }
+#### func main() {
+####		fmt.Println("Hello World")
+#### }
 	1. 함수(function) : Go 프로그램의 기본 구성 요소
 	2. 모든 함수는 func 키워드로 시작
 	3. main은 함수의 이름
