@@ -53,9 +53,10 @@
 	2. /* */ 주석은 두 * 사이의 내용을 모두 주석으로 간주
 
 ### main함수 선언
-#### func main() {
-####		fmt.Println("Hello World")
-#### }
+```func main() {
+	fmt.Println("Hello World")
+}
+```
 	1. 함수(function) : Go 프로그램의 기본 구성 요소
 	2. 모든 함수는 func 키워드로 시작
 	3. main은 함수의 이름
@@ -103,7 +104,11 @@
 
 ## Boolean
 	1. Boolean은 참(true)와 거짓(false)를 나타내는 데 사용되는 특별한 1 바이트 정수 타입이다.
-	
+|연산자|의미|
+|---|---:|	
+|'&&'|and|
+|'||'|or|
+|'!'|not|
 
 
 ## 상수 
