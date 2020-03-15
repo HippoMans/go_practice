@@ -347,15 +347,15 @@ copy(slice1, slice2)
 	3. 연관 키를 통해서 값을 찾는데 사용한다.
 
 #### 맵을 선언하는 방법
-<br> **1. make함수로 키는 string, 값은 int인 map을 만드는 방법**
+**1. make함수로 키는 string, 값은 int인 map을 만드는 방법**
 ```
 var a map[string]int = make(map[string]int)
 ```
-<br> **2. map을 선언할 때 map 키워드와 자료형을 생략**
+**2. map을 선언할 때 map 키워드와 자료형을 생략**
 ```
 var b = make(map[string]int)
 ```
-<br> **3. map을 선언할 때 var, map 키워드와 자료형을 생략 **
+**3. map을 선언할 때 var, map 키워드와 자료형을 생략 **
 ```
 c := make(map[string]int)
 ```
