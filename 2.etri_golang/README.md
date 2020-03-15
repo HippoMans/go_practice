@@ -347,27 +347,26 @@ copy(slice1, slice2)
 	3. 연관 키를 통해서 값을 찾는데 사용한다.
 
 #### 맵을 선언하는 방법
-1. make함수로 키는 string, 값은 int인 map을 만드는 방법
+<br> **1. make함수로 키는 string, 값은 int인 map을 만드는 방법**
 ```
 var a map[string]int = make(map[string]int)
 ```
-2. map을 선언할 때 map 키워드와 자료형을 생략
+<br> **2. map을 선언할 때 map 키워드와 자료형을 생략**
 ```
 var b = make(map[string]int)
 ```
-3. map을 선언할 때 var, map 키워드와 자료형을 생략
+<br> **3. map을 선언할 때 var, map 키워드와 자료형을 생략 **
 ```
 c := make(map[string]int)
 ```
-
+<br>
 
 #### var, map 키워드와 자료형 생략한 map
-	맵을 룩업 테이블(lookup table)이나 디렉토리(dictionary)로 사용하는 굉장히 보편적인 맵 활용법
+맵(map)을 룩업 테이블(lookup table)이나 디렉토리(dictionary)로 사용하는 굉장히 보편적인 맵(map) 활용법
 ``` 
 elements := make(map[string]string)
 ```
-
-
+<br>
 ##### map안에 map 생성하기
 ```
 elements := map[string]map[string]string{
@@ -381,7 +380,7 @@ elements := map[string]map[string]string{
     },
 }
 ```
-
+<br>
 ##### 기본적인 map 사용하기
 ```
 a := map[string]int{"Hippo":20, "Mans":199}
