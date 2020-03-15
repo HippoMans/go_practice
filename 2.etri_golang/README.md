@@ -318,8 +318,8 @@ b := a
 	6. 슬라이스 생성 내장 함수는 make 
 	7. 슬라이스는 중요한 속성으로 len과 cap이 사용된다.
 	8. 슬라이스 예시
-	9. x := make([]float64, 5) 					// cap = 5인 슬라이스
-	10. x := make([]float64, 5, 10) 			// len = 5, cap = 10인 슬라이스
+	9. x := make([]float64, 5)						// cap = 5인 슬라이스
+	10. x := make([]float64, 5, 10) 					// len = 5, cap = 10인 슬라이스
 	11. y := []int{1, 2, 3, 4, 5}
 
 ### 슬라이스 함수
@@ -347,27 +347,28 @@ copy(slice1, slice2)
 	3. 연관 키를 통해서 값을 찾는데 사용한다.
 
 #### 맵을 선언하는 방법
-	1. make함수로 키는 string, 값은 int인 map을 만드는 방법
+1. make함수로 키는 string, 값은 int인 map을 만드는 방법
 ```
 var a map[string]int = make(map[string]int)
 ```
-	2. map을 선언할 때 map 키워드와 자료형을 생략
+2. map을 선언할 때 map 키워드와 자료형을 생략
 ```
 var b = make(map[string]int)
 ```
-	3. map을 선언할 때 var, map 키워드와 자료형을 생략
+3. map을 선언할 때 var, map 키워드와 자료형을 생략
 ```
 c := make(map[string]int)
 ```
 
-#### 1.var, map 키워드와 자료형 생략 map
+
+#### var, map 키워드와 자료형 생략한 map
 	맵을 룩업 테이블(lookup table)이나 디렉토리(dictionary)로 사용하는 굉장히 보편적인 맵 활용법
 ``` 
 elements := make(map[string]string)
 ```
 
 
-##### 2. map안에 map 생성하기
+##### map안에 map 생성하기
 ```
 elements := map[string]map[string]string{
 	"one": map[string]string{
@@ -381,7 +382,7 @@ elements := map[string]map[string]string{
 }
 ```
 
-##### 3. 기본적인 map 사용하기
+##### 기본적인 map 사용하기
 ```
 a := map[string]int{"Hippo":20, "Mans":199}
 b := a
