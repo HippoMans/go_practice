@@ -387,17 +387,173 @@ b := a
 ```
 
 
+<br>
 ## 합수
+	1. 함수(function) : 0개 이상의 입력 매개변수를 0개 이상의 출력 매개변수로 매핑하는 독립적인 코드 영역
+	2. 함수(다른 말로 프로시저나 서브루틴으로 불린다.)는 블랙박스로 표현된다.
+
+### main 함수만 사용하는 경우 
+```
+func main() {
+	x := []float64{98, 97,, 77, 82, 83}
+	
+	total := 0.0
+	for _ , v := range x{			// _는 인덱스이고 v는 값
+		total += v
+		}
+	fmt.Println(total / float64(len(x)))
+	}
+}
+```
 
 
+### average 함수를 사용하는 경우
+```
+func average(x []float64) float64{
+	total := 0.0
+	for _, v := range(x){
+		total += v
+	}
+	return total / float64(len(x))
+}
+
+func main(){
+	x := []float64{98, 98, 77,, 82, 83}
+	fmt.Println(average(x))
+}
+
+```
+
+
+### 다중 리턴값
+```
+func SumAndDiff(a int, b int) (int, int){
+	return (a+b), (a-b)
+}
+
+func main(){
+	sum, diff := SumAndDiff(6, 2)
+	fmt.Println(su, diff)
+}
+```
+
+
+### 리턴값 생략
+```
+func hello() (int, int, int, int, int) {
+	return 1, 2, 3, 4, 5
+}
+
+func main(){
+	a, _, c, _, e := hello()
+	fmt.Println(a, c, e)
+}
+```
 
 ## 가변 함수
+함수의 매개변수 개수가 정해져 있지 않고 매개변수의 개수를 유동적으로 변하도록 설정하는 함수
+```
+func sum(n ...int) int{
+	total := 0
+	for _, value := range(n){
+		total += value
+	}
+}
+
+func main(){
+	a := sum(1,2,3,4,5)
+	fmt.Println(a)
+	b := sum(1,2,3)
+	fmt.Println(b)
+}
+```
 
 
+## 클로저(Closure)
+Go 언어에서 함수는 클로저(Closure)로서 사용될 수도 있다. 클로저(Closure)는 함수 바깥에 있는 변수를 참조하는 함수값(function value)를 일컫는데, 이때의 함수는 바깥의 변수를 마치 함수 안으로 끌어들인 듯이 그 변수를 읽거나 쓸 수 있게 된다.
 
-## 클로저
+### 클로저에서 자주 사용하는 용어
+	- 고차함수 : 함수를 인자로 받거나 함수를 반환하는 함수
+	- 클로저 : 고차함수가 반환하는 함수
+	- 익명함수 : 이름 없이 임시로 쓰는 함수
+	- 람다함수(람다식) : 익명함수의 또다른 이름
+
+### 1.익명함수를 클로저로 활용(1)
+add에 익명함수 func(int, int)int를 대입하여 활용
+```
+func main(){
+	add := func(x, y int) int {
+		return x + y
+	}
+	fmt.Println(add(1,2))
+}
+```
+
+### 2.익명함수를 클로저로 활용(2)
+increment에 익명함수 func() int를 대입하여 활용
+```
+func main(){
+	x := 0
+	increment := func() int{
+		x++
+		return x
+	}
+	fmt.Println(increment())
+	fmt.Println(increment())
+}
+```
+
+### 3.고차함수 : 함수를 만드는 함수(1)
+outadd에 출력값을 익명함수 func(int)int로 사용하여 활용
+```
+func main(){
+	add := outadd(10)
+	fmt.Println(add(3))						//출력값 13
+}
+
+func outadd(a int) func(int) int{						// 함수의 반환을 함수로 한다. 
+	return func(b int) int{							// 이때 익명함수를  클로저로 반환한다. 
+		return a + b
+	}
+}
+```  
+
+### 4. 고차함수 : 함수를 만드는 함수(2)
+makeEven에 출력값 func() uint로 사용하여 활용
+```
+func makeEven() func() uint{
+	i := uint(0)
+	return func() (value uint) {
+		value = i
+		i += 2
+		return value
+	}
+}
+
+func main(){
+	Even := makeEven()
+	fmt.Println(Even())
+	fmt.Println(Even())
+	fmt.Println(Even())
+}
+```
 
 
+## 재귀함수
+	1. 함수 자기 자신을 호출하여 프로그램을 실행
+	2. 클로저와 재귀함수는 함수형 프로그래밍으로 알려진 패러다임의 근간이 되는 중요한 기법
+```
+func factorial(n uint64) uint64{
+	if n == 0{
+		return 1
+	}
+	return n * factorial(n-1)
+}
+
+func main(){
+	fmt.Println(factorial(5))
+}
+```
 
 ## 포인터
 
