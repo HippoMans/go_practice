@@ -772,18 +772,31 @@ func PrintWhat(v interface{}){
 
 
 ## Go 출력 함수
+fmt 패키지가 제공하는 표준 출력 함수 종류
+**1. func Print(a ...interface{}) (n int, err error) {} : 실행되는 cmd에 바로 출력**
+**2. func Println(a ...interface{}) (n int, err error) {} : 실행되는 cmd에 출력한 후 줄을 띄움(개행)**
+**3. func Printf(format string, a ...interface{}) (n int, err error) {} : 형식 지정자를 이용하여 값 출력**
 
 
 ## Go 입력 함수
-
+fmt 패키지가 제공하는 표준 입력 함수 종류
+**1. func Scan(a ...interface{}) (n int, err error) {} : 콘솔에 공백과 개행문자를 구분하여 입력**
+**2. func Scanln(a ...interface{}) (n int, err error) {} : 콘솔에 공백으로 구분하여 입력**
+**3. func Scanf(format string, a ...interface{}) (n int, err error) {} : 콘솔에 형식지정자를 이용하여 입력**
 
 
 ## 문자열 출력 함수
-
+fmt 패키지가 제공하는 문자열 출력 함수 종류
+**1. func Sprint(a ...interface{}) string {} : 값을 문자열로 만들어서 출력**
+**2. func Sprintln(a ...interface{}) string {} : 값을 문자열로 만든 뒤 끝에 개행 문자(\n)을 붙임**
+**3. func Sprintf(format string, a ...interface{}) string {} : 형식 지정자를 이용하여 문자열을 만든 뒤 출력**
 
 
 ## 문자열 입력 함수
-
+fmt 패키지가 제공하는 문자열 입력 함수 종류
+**1. func Sscan(str string, a ...interface{}) (n int, err error) {} : 공백 또는 개행문자로 구분된 문자열에서 값을 받음**
+**2. func Sscanln(str string, a ...interface{}) (n int, err error) {} : 공백으로 구분된 문자열에서 값을 입력 받음**
+**3. func Sscanf(str string, a ...interface{}) (n int, err error) {} : 문자열에서 형시 지정자에 맞게 값을 입력 받음**
 
 ## TCP 프로토콜 사용 방법
 
