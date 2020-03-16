@@ -556,7 +556,62 @@ func main(){
 
 ## 포인터
 
+### 포인터 기본 사용법
+**인자를 받는 함수 호출할 때 해당 인자는 함수로 복사**
+```
+//zero함수는 value copy를 통해 값을 변화하려고 시도
+//실패
+func zero(x int){
+	x = 0
+}
 
+//ten함수는 reference copy를 통해 값을 변화하려고 시도
+//성공
+func ten(x *int){
+	*x = 10
+}
+
+func main(){
+	x := 5
+	zero(x)
+	fmt.Println(x)							// 값 변화 X
+	ten(&x)
+	fmt.Println(x)							// 값 변화 O
+}
+```
+
+### 포인터의 선언 방식
+**포인터형 변수 numberPtr 선언**
+**var numberPtr *int**
+int형의 변수를 가리키는 포인터형 변수 numberPtr 선언. 선언시 아무 값도 넣지 않으면 nil로 초기화
+
+
+### *와 &연산자
+	- *는 포인터 변수를 선언할 때 사용한다. 또한, *는 "역참조(dereference)"를 하는데 사용한다.
+	- 포인터 역참조하면 해당 포인터가 가리키는 값에 접근이 가능하다.
+	- *numberPtr = 0이라고 쓰면 "int값 0을 numberPtr가 참조하는 메모리 위치에 저장한다."
+	- number=0이라고 쓰면 컴파일 에러가 발생한다. number은 int가 아니라 *int를 할당할 수 있다.
+	- 변수 주소를 구할 때는 &연산자 사용한다.
+	- &number는 *int(int에 대한 포인터)반환, number는 int이다.
+	- 포인터를 이용해야 원본 변수 값을 변경 가능하다.
+
+### new - 포인터를 구하는 내장 함수
+```
+func hundred(x *int){
+	*x = 100
+}
+
+func main(){
+	x := new(int)
+	hundred(x)
+	fmt.Println(*x)
+}
+```
+#### 위 코드에 대한 분석
+	- new : 인자로 타입 하나 받아 해당 타입의 값에 맞는 충분한 메모리를 할당한 후 포인터 반환한다.
+	- C++에서는 new와 &가 차이가 있다. 언어마다 차이를 인식하고 세심하게 사용할 것을 주의해야 한다. 
+	- Go언어는 garbage collection을 지원하는 언어로 new가 생성한 메모리에 값이 없으면 자동 삭제한다.
+	- 포인터는 함수나 구조체, 메서드 등 많은 부분에서 중요하기 때문에 계속적으로 공부하는 것을 추천한다. 
 
 ## 구조체, 메서드(Method), 인터페이스(interface)
 
