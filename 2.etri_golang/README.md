@@ -647,7 +647,50 @@ type Person struct{
 	- fmt.Println(black.red, black.blue, black.yello)
 
 ### 메서드(Method)
+**1. 메서드(method)는 특별한 유형의 함수 형태로 코드를 대폭 축소하는데 중요한 역할을 한다**<br>
+**2. func키워드와 함수명 사이에 "수신자(receiver)"추가 - 구조체를 위해 사용되는 함수를  메서드라 한다.<br>
+**3. 수신자는 이름과 타입 있다는 점에서 매개변수와 비슷하지만 구조체를 생성한 후 .(닷)을 붙이면 매서드를 이용 가능**<br>
+**4. 구조체에 종속하는 함수를 메서드라 하여, 다른 구조체에 같은 함수가 필요한 경우에는 비효율적이다.** 
 
+#### 1. 메서드 정의
+```
+type Color struct{
+	red uint64
+	blue uint64
+	yellow uint64
+}
+func (c Color) PrintColor(){
+	fmt.Println("red : ", c.red, "blue : ", c.blue, "yellow : ", c.yellow)
+}
+func (c *Color) ChangeBlack() (uint64, uint64, uint64) {
+	c.red = 100
+	c.blue = 100
+	c.yellow = 100
+	return (c.red, c.blue, c.yellow)
+}
+```
+
+#### 2. 구조체 값 복사 vs 구조체 주소 복사
+**1.구조체 값 복사는 구조체의 값을 전체로 복사(copy)하여 전달**<br>
+**2.구조체 주소 복사는 구조체의 주소를 복사(copy)하여 전달**<br>
+**3.메서드에서 변수의 값을 변화시키기 위해서는 반드시 구조체 주소를 사용해야 한다.**
+
+```
+// 구조체
+type Person struct{
+	name string
+	nickname string
+}
+//구조체 값 변경 (실패)
+func (p Person) changeName(name string){
+	p.name = name
+}
+
+//구조체 주소로 값 변경(성공)
+func (p *Person) changeNickname(nickname string){
+	p.nickname = nickname
+}
+```
 
 ### 인터페이스(interface)
 
