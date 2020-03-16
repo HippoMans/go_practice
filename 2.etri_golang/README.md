@@ -582,11 +582,10 @@ func main(){
 
 ### 포인터의 선언 방식
 **포인터형 변수 numberPtr 선언**
+int형의 변수를 가리키는 포인터형 변수 numberPtr 선언. 선언시 아무 값도 넣지 않으면 nil로 초기화
 ```
 var numberPtr *int
 ```
-int형의 변수를 가리키는 포인터형 변수 numberPtr 선언. 선언시 아무 값도 넣지 않으면 nil로 초기화
-
 
 ### *와 &연산자
 	- *는 포인터 변수를 선언할 때 사용한다. 또한, *는 "역참조(dereference)"를 하는데 사용한다.
@@ -617,6 +616,40 @@ func main(){
 
 ## 구조체, 메서드(Method), 인터페이스(interface)
 
+### 구조체
+구조체는 여러 변수를 담을 수 있는 자료형이다.
+```
+type Color struct{
+	red uint64
+	blue uint64
+	yellow uint64
+}
+
+type Person struct{
+	name, nickname string
+}
+```
+
+#### 1. 구조체 초기화
+	- 구조체를 다양한 방법으로 인스턴스 생성
+	- 기본적으로 0으로 설정된 지역 Color 변수 생성
+	- 기본적으로 ""으로 설정한 지역 Person 변수 생성
+	- struct의 경우 0은 각 필드에 적절한 기본값(int는 0, float의는 0.0, string은 "", 포인터는 nil) 설정
+	- new 함수 사용 가능    예시) green := new(Color), Hippo := new(Person)
+	- 모든 필드에 대한 메모리가 할당되고, 각 필드는 0값 또는 ""으로 설정된 후 포인터(*Color, *Person)가 반환
+	- 각 필드에 값을 할당하고 싶은 경우   예시) green := Color{red : 0, blue :100, yello :50}
+	- 필드가 정의된 순서를 알고 있는 경우 필드명 생략 가능   예시) green := Color{0,100,50}
+
+#### 2. 구조체 필드(Field)
+	- .(닷)연산자를 이용하여 필드에 접근이 가능하다.
+	- black := Color{red : 100, blue : 100, yellow : 100}
+	- black.red, black.blue, black.yellow으로 구조체의 필드에 직접 접근할 수 있다.
+	- fmt.Println(black.red, black.blue, black.yello)
+
+### 메서드(Method)
+
+
+### 인터페이스(interface)
 
 
 ## Goroutine과 Channel
