@@ -582,7 +582,9 @@ func main(){
 
 ### 포인터의 선언 방식
 **포인터형 변수 numberPtr 선언**
-**var numberPtr *int**
+```
+var numberPtr *int
+```
 int형의 변수를 가리키는 포인터형 변수 numberPtr 선언. 선언시 아무 값도 넣지 않으면 nil로 초기화
 
 
