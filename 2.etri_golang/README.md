@@ -648,11 +648,11 @@ type Person struct{
 
 ### 메서드(Method)
 **1. 메서드(method)는 특별한 유형의 함수 형태로 코드를 대폭 축소하는데 중요한 역할을 한다**<br>
-**2. func키워드와 함수명 사이에 "수신자(receiver)"추가 - 구조체를 위해 사용되는 함수를  메서드라 한다.<br>
+**2. func키워드와 함수명 사이에 "수신자(receiver)"추가 - 구조체를 위해 사용되는 함수를  메서드라 한다.**<br>
 **3. 수신자는 이름과 타입 있다는 점에서 매개변수와 비슷하지만 구조체를 생성한 후 .(닷)을 붙이면 매서드를 이용 가능**<br>
 **4. 구조체에 종속하는 함수를 메서드라 하여, 다른 구조체에 같은 함수가 필요한 경우에는 비효율적이다.** 
 
-#### 1. 메서드 정의
+### 1. 메서드 정의
 ```
 type Color struct{
 	red uint64
@@ -670,7 +670,7 @@ func (c *Color) ChangeBlack() (uint64, uint64, uint64) {
 }
 ```
 
-#### 2. 구조체 값 복사 vs 구조체 주소 복사
+### 2. 구조체 값 복사 vs 구조체 주소 복사
 **1.구조체 값 복사는 구조체의 값을 전체로 복사(copy)하여 전달**<br>
 **2.구조체 주소 복사는 구조체의 주소를 복사(copy)하여 전달**<br>
 **3.메서드에서 변수의 값을 변화시키기 위해서는 반드시 구조체 주소를 사용해야 한다.**
@@ -693,7 +693,74 @@ func (p *Person) changeNickname(nickname string){
 ```
 
 ### 인터페이스(interface)
+**1. 구조체(struct)가 필드들의 집합체라면, 인터페이스(interface)는 메서드들의 집합체이다.**<br>
+**2. interface는 타입(type)이 구현해야 하는 메서드 원형(prototype)들의 정의이다.**<br>
+**3. 하나의 사용자 정의 타입이 인터페이스(interface)를 구현하기 위해서는 인터페이스가 갖는 모든 메서드를 구현**<br>
+**4. 인터페이스(interface)는 구조체(struct)와 마찬가지로 type문으로 사용 정의**<br>
 
+### 1. 인터페이스(interface) 구현
+```
+type Shape interface{
+	area() float64
+	perimeter() float64
+}
+type Rect struct{
+	width, height float64
+}
+type Circle struct{
+	radius float64
+}
+//Rect 타입에 대한 Shape 인터페이스 구현
+func (r Rect) area() float64 { return w.width * w.height }
+func (r Rect) perimeter() float64 {return 2 * (r.width + r.height)}
+
+//Circle 타입에 대한 Shape 인터페이스 구현
+func (c Circle) area() float64 { return math.Pi * c.radius * c.radius }
+func (c circle) perimeter() float64 { return 2 * math.Pi * c.radius }
+```
+
+### 2. 인터페이스(interface) 사용
+**1. 인터페이스 사용하는 일반적인 예로 함수가 파라미터로 인터페이스로 받아들이는 경우 사용**<br>
+**2. 함수 파라미터가 interface인 경우, 어떤 타입이든 상관없이 해당 인터페이스를 구현하면 모든 입력 파라미터로 사용 가능**<br>
+**3. 아래의 예제에 showPerimeter()함수는 Shape인터페이스를 파라미터로 받아들여 사용**<br>
+**4. showPerimeter()함수 내에 인터페이스를 매개변수로 사용하는 메서드들이 있다.**<br>
+```
+func main(){
+	r := Rect{width : 10.2, height : 18.9}
+	c := Circle{radius : 3.2}
+	showPerimeter(r, c)
+}
+func showPerimeter(shapes ...Shape){
+	// 인터페이스 메서드(area()와 perimeter())를 s에 대입
+	for _, s := range shapes {
+		a := s.perimeter()
+		fmt.Println(a)
+	}
+}
+```
+
+### 3. 인터페이스(interface) 타입
+**1. 빈 인터페이스(empty interface)를 인터페이스 타입(interface type)이라고 하여 자주 접하게 된다.**<br>
+**2. 여러 표준 패키지들의 함수 Prototype에서 빈 인터페이스(empty interface)가 자주 등작한다.**<br>
+**3. 빈 인터페이스(empty interface)는 interface{}와 같이 표현**<br>
+**4. 빈 인터페이스(empty interface)는 메서드를 전혀 갖지 않은 빈 인터페이스이다.**<br>
+**5. Go언어에서 모든 타입들을 나타내기 위해서 빈 인터페이스를 사용한다.**<br>
+**6. 빈 인터페이스는 어떠한 타입들도 담을 수 있는 컨테이너를 일컫는다.**<br>
+**7. Go에서 빈 인터페이스는 C/C++에서는 void*이고 자바에서는 object라고 볼 수 있다.**<br>
+**8. 아래의 예제는 인터페이스 타입 what에 정수 100, 문자열 "Hippo", 함수 number를 넣은 후 실행해 본다.**<br>
+```
+func main(){
+	var what interface{}
+	what = 100
+	PrintWhat(what)
+	what = "Hippo"
+	PrintWhat(what)
+}
+
+func PrintWhat(v interface{}){
+	fmt.Println(v)
+}
+```
 
 ## Goroutine과 Channel
 
