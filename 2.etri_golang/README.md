@@ -914,7 +914,7 @@ net 패키지가 제공하는 TCP 함수들의 종류<br>
 **func (l *TCPListener) Close() error : TCP 연결 대기 닫음**<br> 
 **func (c *TCPConn) Read(b []byte) (int, error) : 받은 데이터를 읽어온다**<br> 
 **func (c *TCPConn) Write(b []byte) (int, error) : 데이터를 보냄**<br>
-**func (c *TCPConn) Close() error : TCP 연결을 닫는다.**
+**func (c *TCPConn) Close() error : TCP 연결을 닫는다**
 ```
 func requestHandler(c net.Conn){
 	data := make([]byte, 4096)
@@ -955,7 +955,7 @@ func main(){
 ```
 
 ### TCP 클라이언트
-net 패키지가 제공하는 TCP 함수들의 종류
+net 패키지가 제공하는 TCP 함수들의 종류<br>
 **func Dial(network, address string) (Conn, error) : 프로토콜, IP주소, 포트번호 설정 서버 연결**<br>
 **func (c *TCPConn) Close() error : TCP 연결 닫음**<br>
 **func (c *TCPConn) Read(b []byte) (int, error) : 받은 데이터를 읽는다.**<br> 
