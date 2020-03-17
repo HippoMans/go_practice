@@ -909,12 +909,12 @@ TcpServer와 TcpClient에서 tcp 프로토콜을 이용하여 데이터를 전�
 
 ### TCP 서버
 net 패키지가 제공하는 TCP 함수들의 종류<br>
-**func Listen(net, laddr string) (Listener, error) : 프로토콜, IP주소, 포트번호 설정 네트워크 연결 대기**<br>
-***func (l *TCPListener) Accept() (Conn, error) : 클라이언트가 연결되면 TCP 연결(커넥션) Conn 값 리턴**<br>
-***func (l *TCPListener) Close() error : TCP 연결 대기 닫음**<br>
-***func (c *TCPConn) Read(b []byte) (int, error) : 받은 데이터를 읽어온다**<br>
-***func (c *TCPConn) Write(b []byte) (int, error) : 데이터를 보냄**<br>
-***func (c *TCPConn) Close() error : TCP 연결을 닫는다**<br>
+	1. func Listen(net, laddr string) (Listener, error) : 프로토콜, IP주소, 포트번호 설정 네트워크 연결 대기
+	2. func (l *TCPListener) Accept() (Conn, error) : 클라이언트가 연결되면 TCP 연결(커넥션) Conn 값 리턴
+	3. func (l *TCPListener) Close() error : TCP 연결 대기 닫음
+	4. func (c *TCPConn) Read(b []byte) (int, error) : 받은 데이터를 읽어온다
+	5. func (c *TCPConn) Write(b []byte) (int, error) : 데이터를 보냄
+	6. func (c *TCPConn) Close() error : TCP 연결을 닫는다
 ```
 func requestHandler(c net.Conn){
 	data := make([]byte, 4096)
@@ -956,10 +956,10 @@ func main(){
 
 ### TCP 클라이언트
 net 패키지가 제공하는 TCP 함수들의 종류<br>
-**func Dial(network, address string) (Conn, error) : 프로토콜, IP주소, 포트번호 설정 서버 연결**<br>
-**func (c *TCPConn) Close() error : TCP 연결 닫음**<br>
-**func (c *TCPConn) Read(b []byte) (int, error) : 받은 데이터를 읽는다.**<br> 
-**func (c *TCPConn) Write(b []byte) (int, error) : 데이터를 보냄**<br> 
+	1. func Dial(network, address string) (Conn, error) : 프로토콜, IP주소, 포트번호 설정 서버 연결
+	2. func (c *TCPConn) Close() error : TCP 연결 닫음
+	3. func (c *TCPConn) Read(b []byte) (int, error) : 받은 데이터를 읽는다.
+	4. func (c *TCPConn) Write(b []byte) (int, error) : 데이터를 보냄
 
 ```
 func main(){
