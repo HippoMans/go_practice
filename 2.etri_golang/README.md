@@ -825,7 +825,7 @@ func main(){
 	ch := make(chan int)			// int형 channel 생성
 	go sumfunction(15, 3, ch)		// sum goroutine을 샐행, channel 매개변수로 보냄
 	
-	sum := <- ch					// channel에 값을 꺼내서 sum에 대입
+	sum := <- ch				// channel에 값을 꺼내서 sum에 대입
 	fmt.Println(sum)
 }
 ```
@@ -905,17 +905,97 @@ fmt 패키지가 제공하는 문자열 입력 함수 종류<br>
 **func Sscanf(str string, a ...interface{}) (n int, err error) {} : 문자열을 형식지정자로 구분 된 값을 받음**<br>
 
 ## TCP 프로토콜 사용 방법
+TcpServer와 TcpClient에서 tcp 프로토콜을 이용하여 데이터를 전송하는 방법
 
+### TCP 서버
+net 패키지가 제공하는 TCP 함수들의 종류
+**func Listen(net, laddr string) (Listener, error) : 프로토콜, IP주소, 포트번호 설정 네트워크 연결 대기**<br>
+**func (l *TCPListener) Accept() (Conn, error) : 클라이언트가 연결되면 TCP 연결(커넥션) Conn 값 리턴**<br>
+**func (l *TCPListener) Close() error : TCP 연결 대기 닫음**<br> 
+**func (c *TCPConn) Read(b []byte) (int, error) : 받은 데이터를 읽어온다**<br> 
+**func (c *TCPConn) Write(b []byte) (int, error) : 데이터를 보냄**<br>
+**func (c *TCPConn) Close() error : TCP 연결을 닫는다.**
+```
+func requestHandler(c net.Conn){
+	data := make([]byte, 4096)
+	for {
+		n, err := c.Read(data)
+		if err != nil{
+			fmt.Println(err)
+			return 
+		}
+		fmt.Println(string(data[:n]))
+	
+		_, err = c.Write(data[:n])
+		if err != nil{
+			fmt.Println(err)
+			return
+		}
+	}
+}
 
+func main(){
+	listen, err := net.Listen("tcp", ":8080:")
+	if err != nil{
+		fmt.Println(err)
+		return
+	}
+	defer listen.Close()
 
+	for {
+		conn, err := listen.Accept()
+		if err != nil{
+			fmt.Println(err)
+			continue
+		}
+		defer conn.Close()
+		go requestHandler(conn)
+	}
+}
+```
 
+### TCP 클라이언트
+net 패키지가 제공하는 TCP 함수들의 종류
+**func Dial(network, address string) (Conn, error) : 프로토콜, IP주소, 포트번호 설정 서버 연결**<br>
+**func (c *TCPConn) Close() error : TCP 연결 닫음**<br>
+**func (c *TCPConn) Read(b []byte) (int, error) : 받은 데이터를 읽는다.**<br> 
+**func (c *TCPConn) Write(b []byte) (int, error) : 데이터를 보냄**<br> 
 
+```
+func main(){
+	client, err := net.Dial("tcp", "127.0.0.1:8080")
+	if err != nil{
+		fmt.Println(err)
+		return
+	}
+	defer client.Close()
+	go func(c net.Conn){
+		data := make([]byte, 4096)
+		
+		for {
+			n, err := c.Read(data)
+			if err != nil{
+				fmt.Println(err)
+				return
+			}
+			fmt.Println(string(data[:n]))
+			time.Sleep(2 * time.Second)
+		}
+	}(client)
 
-
- 	
-
-
-
-
-
-
+	go func(c net.Conn){
+		i := 0
+		for {
+			s := "Golang " + strconv.Itoa(i)
+			_ , err := c.Write([]byte(s))
+			if err != nil{
+				fmt.Println(err)
+				return
+			}
+			i++
+			time.Sleep(2 * time.Second)
+		}
+	}(client)
+	fmt.Scanln()
+}
+```
