@@ -819,13 +819,13 @@ c chan <- int
 ### channel 사용 예시
 ```
 func sumfunction(first int, second int, sum chan int){
-	sum <- first + second				// int 형 channel에 두 합 전송
+	sum <- first + second			// int 형 channel에 두 합 전송
 }
 func main(){
-	ch := make(chan int)				// int형 channel 생성
-	go sumfunction(15, 3, ch)				// sum goroutine을 샐행, channel 매개변수로 보냄
+	ch := make(chan int)			// int형 channel 생성
+	go sumfunction(15, 3, ch)		// sum goroutine을 샐행, channel 매개변수로 보냄
 	
-	sum := <- ch				// channel에 값을 꺼내서 sum에 대입
+	sum := <- ch					// channel에 값을 꺼내서 sum에 대입
 	fmt.Println(sum)
 }
 ```
