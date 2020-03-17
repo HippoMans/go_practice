@@ -767,7 +767,43 @@ func PrintWhat(v interface{}){
 }
 ```
 
-## Goroutine과 Channel
+## Goroutine
+**1. 고루틴(Goroutine)은 함수를 동시에 실행시킬 수 있도록 하는 기능을 가지고 있다.**
+**2. 다른 언어의 스레드 생성 방법보다 간단하게 할 수 있다. 고루틴(Goroutine)은 Go언어의 최대 장점이다**
+**3. 고루틴은 운영체제의 쓰레드와는 조금 다른 개념이다. 프로그램 쓰레드를 만들기 때문에 리소스를 적게 사용한다.**
+
+### Goroutine의 사용법
+```
+func Introduction(){
+	fmt.Println("Hello, My name is Nick")
+
+	ByeBye()
+}
+func ByeBye() {
+	fmt.Println("Bye Bye~~~")
+}
+func main(){
+	go Introduction()
+	go ByeBye()
+}
+
+```
+
+### Closure를 이용하여 Goroutine을 실행
+```
+func main(){
+	runtime.GOMAXPROCS(1)
+	s := "Hello, Go World"
+
+	for i := 0; i < 10; i++{
+		go func(n int){
+			fmt.Println(s, n)
+		}(i)
+	}
+}
+```
+
+##Channel
 
 
 
