@@ -768,9 +768,9 @@ func PrintWhat(v interface{}){
 ```
 
 ## Goroutine
-**1. 고루틴(Goroutine)은 함수를 동시에 실행시킬 수 있도록 하는 기능을 가지고 있다.**
-**2. 다른 언어의 스레드 생성 방법보다 간단하게 할 수 있다. 고루틴(Goroutine)은 Go언어의 최대 장점이다**
-**3. 고루틴은 운영체제의 쓰레드와는 조금 다른 개념이다. 프로그램 쓰레드를 만들기 때문에 리소스를 적게 사용한다.**
+**1. 고루틴(Goroutine)은 함수를 동시에 실행시킬 수 있도록 하는 기능을 가지고 있다.**<br>
+**2. 다른 언어의 스레드 생성 방법보다 간단하게 할 수 있다. 고루틴(Goroutine)은 Go언어의 최대 장점이다**<br>
+**3. 고루틴은 운영체제의 쓰레드와는 조금 다른 개념이다. 프로그램 쓰레드를 만들기 때문에 리소스를 적게 사용한다.**<br>
 
 ### Goroutine의 사용법
 ```
@@ -786,7 +786,6 @@ func main(){
 	go Introduction()
 	go ByeBye()
 }
-
 ```
 
 ### Closure를 이용하여 Goroutine을 실행
@@ -803,8 +802,79 @@ func main(){
 }
 ```
 
-##Channel
+## Channel
 
+### channel 사용하기
+
+**받기 전용 채널 선언**<br>
+```
+c <- chan int
+```
+
+**보내기 전용 채널 선언**<br>
+```
+c chan <- int
+```
+
+### channel 사용 예시
+```
+func sumfunction(first int, second int, sum chan int){
+	sum <- first + second				// int 형 channel에 두 합 전송
+}
+func main(){
+	ch := make(chan int)				// int형 channel 생성
+	go sumfunction(15, 3, ch)				// sum goroutine을 샐행, channel 매개변수로 보냄
+	
+	sum := <- ch				// channel에 값을 꺼내서 sum에 대입
+	fmt.Println(sum)
+}
+```
+
+### 동기식 goroutine channel 사용법
+**1. 송신자가 보낼 값이 들어 올 때까지 대기하고, 수신자는 채널에 값이 들어올 때가지 대기하는 형식**<br>
+**2. 동기식channel을 통해 goroutine의 실행 순서를 결정할 수 있다.**
+```
+func main(){
+	channel := make(chan bool)
+	count := 10
+
+	go func(){
+		for i:=0; i< count; i++{
+			channel <- true
+			fmt.Println("goroutine : ", i)
+			time.Sleep(1 * time.Second)
+		}
+	}()
+
+	for i:=0; i < count; i++{
+		<- channel
+		fmt.Println("main func : ", i)
+	}
+}
+```
+
+### close()와 range() 함수를 사용하는 방법
+**1. for 반복문에서 range 키워드를 사용하면 channel이 닫힐 때까지 반복하여 값을 꺼낼 수 있다.**<br>
+**2. goroutine 안에 channel의 일정 값까지 보낸 뒤 close()를 사용하면, 선언 전까지만 channel에 값이 전송**<br>
+
+```
+func main(){
+	channel := make(chan int)
+	go func() {
+		for i:=0; i < 5; i++{
+			channel <- i
+		
+			if i == 3{	
+				close(channel)
+			}
+		}
+	}()
+
+	for i := range channel{
+		fmt.Println(i)
+	}
+}
+``` 
 
 
 ## Go 출력 함수
