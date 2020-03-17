@@ -908,7 +908,7 @@ fmt 패키지가 제공하는 문자열 입력 함수 종류<br>
 TcpServer와 TcpClient에서 tcp 프로토콜을 이용하여 데이터를 전송하는 방법
 
 ### TCP 서버
-net 패키지가 제공하는 TCP 함수들의 종류
+net 패키지가 제공하는 TCP 함수들의 종류<br>
 **func Listen(net, laddr string) (Listener, error) : 프로토콜, IP주소, 포트번호 설정 네트워크 연결 대기**<br>
 **func (l *TCPListener) Accept() (Conn, error) : 클라이언트가 연결되면 TCP 연결(커넥션) Conn 값 리턴**<br>
 **func (l *TCPListener) Close() error : TCP 연결 대기 닫음**<br> 
